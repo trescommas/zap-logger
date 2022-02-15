@@ -8,7 +8,7 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-func NewLogger(file_path string, max_size int32, max_backups int32, max_age int32, compress bool) *zap.Logger {
+func NewLogger(file_path string, max_size int, max_backups int, max_age int, compress bool) *zap.Logger {
 	writerSyncer := getLogWriter(file_path, max_size, max_backups, max_age, compress)
 	encoder := getEncoder()
 	core := zapcore.NewCore(encoder, writerSyncer, zapcore.DebugLevel)
@@ -22,7 +22,7 @@ func NewLogger(file_path string, max_size int32, max_backups int32, max_age int3
 	return logger
 }
 
-func getLogWriter(file_path string, max_size int32, max_backups int32, max_age int32, compress bool) zapcore.WriteSyncer {
+func getLogWriter(file_path string, max_size int, max_backups int, max_age int, compress bool) zapcore.WriteSyncer {
 	lumberJackLogger := &lumberjack.Logger{
 		Filename:   file_path,
 		MaxSize:    max_size,
